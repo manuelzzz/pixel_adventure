@@ -25,7 +25,7 @@ class Level extends World {
       switch (spawnPoint.class_) {
         case 'Player':
           final player = Player(
-            character: 'Mask Dude',
+            character: 'Ninja Frog',
             position: Vector2(spawnPoint.x, spawnPoint.y),
           );
           add(player);
