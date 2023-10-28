@@ -20,7 +20,7 @@ class Player extends SpriteAnimationGroupComponent
   bool facingRight = true;
 
   Player({
-    required this.character,
+    this.character = 'Nijna Frog',
     Vector2? position,
   }) : super(position: position);
 

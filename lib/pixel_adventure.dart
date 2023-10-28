@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:pixel_adventure/actors/player.dart';
 import 'package:pixel_adventure/levels/level.dart';
 
 class PixelAdventure extends FlameGame with HasKeyboardHandlerComponents {
@@ -10,14 +11,18 @@ class PixelAdventure extends FlameGame with HasKeyboardHandlerComponents {
   Color backgroundColor() => const Color(0xFF211F30);
 
   late final CameraComponent cam;
-
-  @override
-  final world = Level(levelName: 'Level-01');
+  Player player = Player(character: 'Mask Dude');
 
   @override
   Future<void> onLoad() async {
     // Load all images into cache
     await images.loadAllImages();
+
+    @override
+    final world = Level(
+      levelName: 'Level-01',
+      player: player,
+    );
 
     cam = CameraComponent.withFixedResolution(
       world: world,
