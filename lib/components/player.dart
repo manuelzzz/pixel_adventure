@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
+import 'package:pixel_adventure/components/collision_block.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
 enum PlayerState { idle, running }
@@ -16,6 +17,8 @@ class Player extends SpriteAnimationGroupComponent
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero();
 
+  List<CollisionBlock> collisionBlocks = [];
+
   Player({
     this.character = 'Nijna Frog',
     Vector2? position,
@@ -24,6 +27,7 @@ class Player extends SpriteAnimationGroupComponent
   @override
   FutureOr<void> onLoad() {
     _loadAllAnimations();
+    debugMode = true;
     return super.onLoad();
   }
 
@@ -91,6 +95,7 @@ class Player extends SpriteAnimationGroupComponent
     position.x += velocity.x * dt;
   }
 
+  /// Updates the state of character animations based on the velocity
   void _updatePlayerState() {
     PlayerState playerState = PlayerState.idle;
 
