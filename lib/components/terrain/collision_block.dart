@@ -4,8 +4,8 @@ class CollisionBlock extends PositionComponent {
   bool isPlatform;
 
   CollisionBlock({
-    required position,
-    required size,
+    required Vector2 position,
+    required Vector2 size,
     this.isPlatform = false,
   }) : super(
           position: position,
