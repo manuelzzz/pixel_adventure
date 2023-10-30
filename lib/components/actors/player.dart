@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
-import 'package:pixel_adventure/components/actors/player_hitbox.dart';
+import 'package:pixel_adventure/components/utils/custom_hitbox.dart';
 import 'package:pixel_adventure/components/terrain/collision_block.dart';
 import 'package:pixel_adventure/components/utils/check_collision.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
@@ -32,7 +32,7 @@ class Player extends SpriteAnimationGroupComponent
 
   List<CollisionBlock> collisionBlocks = [];
 
-  PlayerHitbox hitbox = PlayerHitbox(
+  CustomHitbox hitbox = CustomHitbox(
     offsetX: 10,
     offsetY: 4,
     width: 14,
