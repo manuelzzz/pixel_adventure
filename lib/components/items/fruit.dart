@@ -11,9 +11,9 @@ class Fruit extends SpriteAnimationComponent
 
   Fruit({
     this.fruit = 'Apple',
-    required Vector2 position,
-    required Vector2 size,
-  }) : super(position: position, size: size);
+    super.position,
+    super.size,
+  });
 
   final double stepTime = 0.05;
 
@@ -58,14 +58,15 @@ class Fruit extends SpriteAnimationComponent
           amount: 6,
           stepTime: stepTime,
           textureSize: Vector2.all(32),
+          loop: false,
         ),
       );
 
       _collected = true;
 
-      Future.delayed(const Duration(milliseconds: 400), () {
-        removeFromParent();
-      });
+      await animationTicker?.completed;
+
+      removeFromParent();
     }
   }
 }
