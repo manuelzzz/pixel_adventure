@@ -5,14 +5,15 @@ import 'package:flame/components.dart';
 import 'package:pixel_adventure/components/utils/custom_hitbox.dart';
 import 'package:pixel_adventure/pixel_adventure.dart';
 
-class Fruit extends SpriteAnimationComponent with HasGameRef<PixelAdventure> {
+class Fruit extends SpriteAnimationComponent
+    with HasGameRef<PixelAdventure>, CollisionCallbacks {
   final String fruit;
 
   Fruit({
     this.fruit = 'Apple',
     required Vector2 position,
     required Vector2 size,
-  }) : super(position: position, size: size, removeOnFinish: true);
+  }) : super(position: position, size: size);
 
   final double stepTime = 0.05;
 
@@ -22,7 +23,7 @@ class Fruit extends SpriteAnimationComponent with HasGameRef<PixelAdventure> {
     width: 12,
     height: 12,
   );
-  bool collected = false;
+  bool _collected = false;
 
   @override
   FutureOr<void> onLoad() {
@@ -47,5 +48,24 @@ class Fruit extends SpriteAnimationComponent with HasGameRef<PixelAdventure> {
     );
 
     return super.onLoad();
+  }
+
+  void playerTouch() async {
+    if (!_collected) {
+      animation = SpriteAnimation.fromFrameData(
+        game.images.fromCache('Items/Fruits/Collected.png'),
+        SpriteAnimationData.sequenced(
+          amount: 6,
+          stepTime: stepTime,
+          textureSize: Vector2.all(32),
+        ),
+      );
+
+      _collected = true;
+
+      Future.delayed(const Duration(milliseconds: 400), () {
+        removeFromParent();
+      });
+    }
   }
 }
