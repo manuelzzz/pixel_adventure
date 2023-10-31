@@ -9,8 +9,8 @@ class BackgroundTile extends SpriteComponent with HasGameRef<PixelAdventure> {
 
   BackgroundTile({
     this.color = 'Gray',
-    required Vector2 position,
-  }) : super(position: position);
+    super.position,
+  });
 
   @override
   FutureOr<void> onLoad() {
