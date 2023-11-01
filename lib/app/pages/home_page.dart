@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pixel_adventure/app/widgets/pixel_adventure_game_button.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,25 +15,19 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/game');
-              },
-              child: const Text('Jogar'),
+            PixelAdventureGameButton(
+              name: 'Play',
+              onPressed: () => Navigator.of(context).pushNamed('/levels'),
             ),
             const Divider(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/game');
-              },
-              child: const Text('Opções'),
+            PixelAdventureGameButton(
+              name: 'Settings',
+              onPressed: () {},
             ),
             const Divider(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/game');
-              },
-              child: const Text('Sair'),
+            PixelAdventureGameButton(
+              name: 'Close',
+              onPressed: () {},
             ),
           ],
         ),
