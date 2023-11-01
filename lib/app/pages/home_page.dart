@@ -19,12 +19,12 @@ class HomePage extends StatelessWidget {
               name: 'Play',
               onPressed: () => Navigator.of(context).pushNamed('/levels'),
             ),
-            const Divider(height: 10),
+            const SizedBox(height: 20),
             PixelAdventureGameButton(
               name: 'Settings',
               onPressed: () {},
             ),
-            const Divider(height: 10),
+            const SizedBox(height: 20),
             PixelAdventureGameButton(
               name: 'Close',
               onPressed: () {},
