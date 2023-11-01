@@ -2,12 +2,12 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
-import 'package:pixel_adventure/components/items/fruit.dart';
-import 'package:pixel_adventure/components/traps/saw.dart';
-import 'package:pixel_adventure/components/utils/custom_hitbox.dart';
-import 'package:pixel_adventure/components/terrain/collision_block.dart';
-import 'package:pixel_adventure/components/utils/check_collision.dart';
-import 'package:pixel_adventure/pixel_adventure.dart';
+import 'package:pixel_adventure/game/components/items/fruit.dart';
+import 'package:pixel_adventure/game/components/traps/saw.dart';
+import 'package:pixel_adventure/game/utils/custom_hitbox.dart';
+import 'package:pixel_adventure/game/components/terrain/collision_block.dart';
+import 'package:pixel_adventure/game/utils/check_collision.dart';
+import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 enum PlayerState {
   idle,

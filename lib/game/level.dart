@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
-import 'package:pixel_adventure/components/items/fruit.dart';
-import 'package:pixel_adventure/components/terrain/background_tile.dart';
-import 'package:pixel_adventure/components/terrain/collision_block.dart';
-import 'package:pixel_adventure/components/actors/player.dart';
-import 'package:pixel_adventure/components/traps/saw.dart';
-import 'package:pixel_adventure/pixel_adventure.dart';
+import 'package:pixel_adventure/game/components/items/fruit.dart';
+import 'package:pixel_adventure/game/components/terrain/background_tile.dart';
+import 'package:pixel_adventure/game/components/terrain/collision_block.dart';
+import 'package:pixel_adventure/game/actors/player.dart';
+import 'package:pixel_adventure/game/components/traps/saw.dart';
+import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 class Level extends World with HasGameRef<PixelAdventure> {
   final String levelName;

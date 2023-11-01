@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:pixel_adventure/pixel_adventure.dart';
+import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 class BackgroundTile extends SpriteComponent with HasGameRef<PixelAdventure> {
   final String color;
