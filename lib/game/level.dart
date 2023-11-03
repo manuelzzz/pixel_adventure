@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
+import 'package:pixel_adventure/game/components/items/checkpoint.dart';
 import 'package:pixel_adventure/game/components/items/fruit.dart';
 import 'package:pixel_adventure/game/components/terrain/background_tile.dart';
 import 'package:pixel_adventure/game/components/terrain/collision_block.dart';
@@ -30,6 +31,7 @@ class Level extends World with HasGameRef<PixelAdventure> {
     add(level);
 
     _scrollingBackground();
+    _scrollingBackground();
     _spawningObjects();
     _addCollisions();
 
@@ -37,18 +39,18 @@ class Level extends World with HasGameRef<PixelAdventure> {
   }
 
   void _scrollingBackground() {
-    final backgroundLayer = level.tileMap.getLayer('Background');
+    final scrollLayer = level.tileMap.getLayer('Scroll');
     const tileSize = 64;
 
     final numTilesY = (game.size.y / tileSize).floor();
-    final numTilesX = (game.size.x / tileSize).floor();
+    const numTilesX = -7;
 
-    if (backgroundLayer != null) {
+    if (scrollLayer != null) {
       final backgroundColor =
-          backgroundLayer.properties.getValue('BackgroundColor');
+          scrollLayer.properties.getValue('BackgroundColor');
 
       for (double y = 0; y < game.size.y / numTilesY; y++) {
-        for (double x = 0; x < numTilesX; x++) {
+        for (double x = 1; x - 16 < numTilesX; x++) {
           final backgroundTile = BackgroundTile(
             color: backgroundColor ?? 'Gray',
             position: Vector2(
@@ -98,6 +100,12 @@ class Level extends World with HasGameRef<PixelAdventure> {
             add(saw);
             break;
           case 'Checkpoint':
+            final checkPoint = Checkpoint(
+              position: Vector2(spawnPoint.x, spawnPoint.y),
+              size: Vector2(spawnPoint.width, spawnPoint.height),
+            );
+
+            add(checkPoint);
             break;
           default:
         }
