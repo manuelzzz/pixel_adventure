@@ -73,6 +73,7 @@ flutter:
     - assets/images/Items/Checkpoints/Checkpoint/
     - assets/images/Traps/Saw/
     - assets/images/Menu/Buttons/
+    - assets/images/Menu/Levels/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
