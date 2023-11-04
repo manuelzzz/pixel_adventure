@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pixel_adventure/app/widgets/pixel_adventure_game_button.dart';
+import 'package:pixel_adventure/app/widgets/pixel_adventure_level_button.dart';
 
 class LevelsPage extends StatefulWidget {
   const LevelsPage({super.key});
@@ -22,10 +23,12 @@ class _LevelsPageState extends State<LevelsPage> {
         ),
         leadingWidth: 75,
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => Navigator.of(context).pushNamed('/game'),
-          child: const Text('Level 1'),
+      body: const Center(
+        child: Row(
+          children: [
+            PixelAdventureLevelButton(levelIndex: 01),
+            PixelAdventureLevelButton(levelIndex: 02),
+          ],
         ),
       ),
     );
