@@ -40,6 +40,8 @@ class Player extends SpriteAnimationGroupComponent
 
   double horizontalMovement = 0;
   double moveSpeed = 100;
+  double fixedDeltaTime = 1 / 60;
+  double acumulatedTime = 0;
 
   Vector2 velocity = Vector2.zero();
   Vector2 startingPosition = Vector2.zero();
@@ -80,12 +82,18 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   void update(double dt) {
-    if (!gotHit && !reachedCheckpoint) {
-      _updatePlayerState();
-      _updatePlayerMovement(dt);
-      _checkHorizontalCollisions();
-      _applyGravity(dt);
-      _checkVerticalCollisions();
+    acumulatedTime += dt;
+
+    while (acumulatedTime > fixedDeltaTime) {
+      if (!gotHit && !reachedCheckpoint) {
+        _updatePlayerState();
+        _updatePlayerMovement(fixedDeltaTime);
+        _checkHorizontalCollisions();
+        _applyGravity(fixedDeltaTime);
+        _checkVerticalCollisions();
+      }
+
+      acumulatedTime -= fixedDeltaTime;
     }
 
     super.update(dt);
