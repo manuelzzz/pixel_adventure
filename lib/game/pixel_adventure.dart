@@ -5,10 +5,15 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:pixel_adventure/game/actors/player.dart';
+import 'package:pixel_adventure/game/components/jump_button.dart';
 import 'package:pixel_adventure/game/components/level.dart';
 
 class PixelAdventure extends FlameGame
-    with HasKeyboardHandlerComponents, DragCallbacks, HasCollisionDetection {
+    with
+        HasKeyboardHandlerComponents,
+        DragCallbacks,
+        HasCollisionDetection,
+        TapCallbacks {
   @override
   Color backgroundColor() => const Color(0xFF211F30);
 
@@ -23,7 +28,7 @@ class PixelAdventure extends FlameGame
   late CameraComponent cam;
 
   Player player = Player(character: 'Mask Dude');
-  bool showHud = false;
+  bool showHud = true;
 
   @override
   void onAttach() {
@@ -41,7 +46,7 @@ class PixelAdventure extends FlameGame
     await images.loadAllImages();
 
     if (showHud) {
-      addJoystick();
+      _addHud();
     }
 
     return super.onLoad();
@@ -50,13 +55,13 @@ class PixelAdventure extends FlameGame
   @override
   void update(double dt) {
     if (showHud) {
-      updateJoystick();
+      _updateJoystick();
     }
 
     super.update(dt);
   }
 
-  void addJoystick() {
+  void _addHud() {
     joystick = JoystickComponent(
       priority: 10,
       knob: SpriteComponent(
@@ -67,10 +72,13 @@ class PixelAdventure extends FlameGame
       margin: const EdgeInsets.only(left: 32, bottom: 32),
     );
 
-    add(joystick);
+    addAll([
+      joystick,
+      JumpButton(),
+    ]);
   }
 
-  void updateJoystick() {
+  void _updateJoystick() {
     switch (joystick.direction) {
       case JoystickDirection.upLeft:
       case JoystickDirection.downLeft:
