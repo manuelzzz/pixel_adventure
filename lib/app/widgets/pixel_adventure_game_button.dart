@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PixelAdventureGameButton extends StatefulWidget {
+class PixelAdventureGameButton extends StatelessWidget {
   final void Function() onPressed;
   final String name;
 
@@ -11,22 +11,16 @@ class PixelAdventureGameButton extends StatefulWidget {
   });
 
   @override
-  State<PixelAdventureGameButton> createState() =>
-      _PixelAdventureGameButtonState();
-}
-
-class _PixelAdventureGameButtonState extends State<PixelAdventureGameButton> {
-  @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: widget.onPressed,
+      onPressed: onPressed,
       style: const ButtonStyle(
         iconSize: MaterialStatePropertyAll(150),
         backgroundColor: MaterialStatePropertyAll(Colors.transparent),
         elevation: MaterialStatePropertyAll(0),
       ),
       child: Image.asset(
-        "assets/images/Menu/Buttons/${widget.name}.png",
+        "assets/images/Menu/Buttons/$name.png",
         fit: BoxFit.cover,
         width: 50,
       ),
