@@ -12,30 +12,33 @@ class PixelAdventure extends FlameGame
   @override
   Color backgroundColor() => const Color(0xFF211F30);
 
-  Player player = Player(character: 'Mask Dude');
+  final Map<int, String> levelNames = {
+    1: 'Level-1',
+    2: 'Level-2',
+  };
+
+  int levelIndex = 0;
+
   late JoystickComponent joystick;
-  late final CameraComponent cam;
+  late CameraComponent cam;
+
+  Player player = Player(character: 'Mask Dude');
   bool showHud = false;
+
+  @override
+  void onAttach() {
+    if (buildContext != null) {
+      levelIndex = ModalRoute.of(buildContext!)!.settings.arguments as int;
+    }
+
+    _loadLevel();
+
+    super.onAttach();
+  }
 
   @override
   Future<void> onLoad() async {
     await images.loadAllImages();
-
-    @override
-    final world = Level(
-      levelName: 'Level-01',
-      player: player,
-    );
-
-    cam = CameraComponent.withFixedResolution(
-      world: world,
-      width: 640,
-      height: 360,
-    );
-
-    cam.viewfinder.anchor = Anchor.topLeft;
-
-    addAll([cam, world]);
 
     if (showHud) {
       addJoystick();
@@ -83,5 +86,33 @@ class PixelAdventure extends FlameGame
         player.horizontalMovement = 0;
         break;
     }
+  }
+
+  void loadNextLevel() {
+    if (levelIndex < levelNames.length && buildContext != null) {
+      levelIndex++;
+
+      Navigator.of(buildContext!).pushReplacementNamed(
+        '/game',
+        arguments: levelIndex,
+      );
+    } else {}
+  }
+
+  void _loadLevel() {
+    final world = Level(
+      levelName: levelNames[levelIndex]!,
+      player: player,
+    );
+
+    cam = CameraComponent.withFixedResolution(
+      world: world,
+      width: 640,
+      height: 360,
+    );
+
+    cam.viewfinder.anchor = Anchor.topLeft;
+
+    addAll([cam, world]);
   }
 }
