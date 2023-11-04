@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
+import 'package:pixel_adventure/game/components/items/checkpoint.dart';
 import 'package:pixel_adventure/game/components/items/fruit.dart';
 import 'package:pixel_adventure/game/components/traps/saw.dart';
 import 'package:pixel_adventure/game/utils/custom_hitbox.dart';
@@ -46,6 +47,7 @@ class Player extends SpriteAnimationGroupComponent
   bool isOnGround = false;
   bool hasJumped = false;
   bool gotHit = false;
+  bool reachedCheckpoint = false;
 
   List<CollisionBlock> collisionBlocks = [];
 
@@ -78,7 +80,7 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   void update(double dt) {
-    if (!gotHit) {
+    if (!gotHit && !reachedCheckpoint) {
       _updatePlayerState();
       _updatePlayerMovement(dt);
       _checkHorizontalCollisions();
@@ -111,8 +113,11 @@ class Player extends SpriteAnimationGroupComponent
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Fruit) other.playerTouch();
-    if (other is Saw) _collidedwithEnemy();
+    if (!reachedCheckpoint) {
+      if (other is Fruit) other.playerTouch();
+      if (other is Saw) _collidedwithEnemy();
+      if (other is Checkpoint) _reachedCheckpoint();
+    }
 
     super.onCollision(intersectionPoints, other);
   }
@@ -287,5 +292,26 @@ class Player extends SpriteAnimationGroupComponent
 
   void _collidedwithEnemy() {
     _respawn();
+  }
+
+  void _reachedCheckpoint() async {
+    reachedCheckpoint = true;
+
+    if (scale.x > 0) {
+      position = position - Vector2.all(32);
+    } else if (scale.x < 0) {
+      position = position + Vector2(32, -32);
+    }
+
+    current = PlayerState.disappearing;
+
+    await animationTicker?.completed;
+    animationTicker?.reset();
+
+    reachedCheckpoint = false;
+    position = Vector2.all(-640);
+
+    const waitToChangeDuration = Duration(seconds: 3);
+    Future.delayed(waitToChangeDuration, () => game.loadNextLevel());
   }
 }
