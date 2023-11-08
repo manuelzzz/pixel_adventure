@@ -26,11 +26,11 @@ class Level extends World with HasGameRef<PixelAdventure> {
     level = await TiledComponent.load(
       '$levelName.tmx',
       Vector2.all(16),
+      priority: -3,
     );
 
     add(level);
 
-    _scrollingBackground();
     _scrollingBackground();
     _spawningObjects();
     _addCollisions();
@@ -38,30 +38,19 @@ class Level extends World with HasGameRef<PixelAdventure> {
     return super.onLoad();
   }
 
-  void _scrollingBackground() {
+  Future<void> _scrollingBackground() async {
     final scrollLayer = level.tileMap.getLayer('Scroll');
-    const tileSize = 64;
-
-    final numTilesY = (game.size.y / tileSize).floor();
-    const numTilesX = -7;
 
     if (scrollLayer != null) {
-      final backgroundColor =
+      final scrollBackgroundColor =
           scrollLayer.properties.getValue('BackgroundColor');
 
-      for (double y = 0; y < game.size.y / numTilesY; y++) {
-        for (double x = 1; x - 16 < numTilesX; x++) {
-          final backgroundTile = BackgroundTile(
-            color: backgroundColor ?? 'Gray',
-            position: Vector2(
-              x * tileSize,
-              y * tileSize - tileSize,
-            ),
-          );
+      final backgroundTile = BackgroundTile(
+        color: scrollBackgroundColor,
+        position: Vector2(49, 49),
+      );
 
-          add(backgroundTile);
-        }
-      }
+      await add(backgroundTile);
     }
   }
 
