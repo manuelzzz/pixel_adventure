@@ -157,7 +157,7 @@ class Player extends SpriteAnimationGroupComponent
 
   /// `amount` the number of frames that the .png file have
   ///
-  /// `state` like idle, running and hit (see all at /assets/images/Main Characters/)
+  /// `state` like idle, running and hit (all in `PlayerState` enum)
   SpriteAnimation _spriteAnimation({
     required int amount,
     required String state,
@@ -172,6 +172,7 @@ class Player extends SpriteAnimationGroupComponent
     );
   }
 
+  /// Works like _spriteAnimation, but, 96x96 images
   SpriteAnimation _specialSpriteAnimation(String state, int amount) {
     return SpriteAnimation.fromFrameData(
       game.images.fromCache('Main Characters/$state (96x96).png'),
