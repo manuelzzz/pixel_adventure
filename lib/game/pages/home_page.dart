@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pixel_adventure/app/widgets/pixel_adventure_game_button.dart';
+import 'package:pixel_adventure/game/widgets/pixel_adventure_game_button.dart';
 import 'package:pixel_adventure/game/pixel_adventure.dart';
 
 class HomePage extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pixel_adventure/app/widgets/pixel_adventure_game_button.dart';
-import 'package:pixel_adventure/app/widgets/pixel_adventure_level_button.dart';
+import 'package:pixel_adventure/game/widgets/pixel_adventure_game_button.dart';
+import 'package:pixel_adventure/game/widgets/pixel_adventure_level_button.dart';
 
 class LevelsPage extends StatefulWidget {
   const LevelsPage({super.key});
